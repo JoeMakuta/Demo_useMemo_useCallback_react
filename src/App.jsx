@@ -1,12 +1,12 @@
 
+
 import { useCallback, useMemo, useState } from 'react'
 
-
 function changeBackground(color) {
-  for (let i = 0; i < 1000000000; i++) { }
   if (color) return (false)
   else return (true)
 }
+
 
 function App() {
 
@@ -18,27 +18,20 @@ function App() {
     color: darkMode ? 'white' : 'black'
   }
 
-  function decrement() {
-    console.log('Decrement');
-    setNumber(number - 1)
-  }
+  const myColor = useMemo(() => changeBackground(darkMode), [darkMode]) // Implementation of useMemo
+  // const myColor = useCallback(changeBackground, [darkMode]) //Implementation of useCallback
 
-  function increment() {
-    console.log('Increment');
-    setNumber(number + 1)
-  }
 
-  const myColor = useMemo(() => changeBackground(darkMode), [darkMode])
+  return (<div style={colorStyle} >
 
-  return (<div style={colorStyle}>
     <h1>
       React Hooks :<br />
       <span>useCallback</span> and <span>useMemo</span>
     </h1>
 
-    <button onClick={() => { decrement() }}>-</button>
+    <button onClick={() => { setNumber(number - 1) }}>-</button>
     <strong>{number}</strong>
-    <button onClick={() => { increment() }}>+</button>
+    <button onClick={() => { setNumber(number + 1) }}>+</button>
 
     <div>
       <button onClick={() => (setDarkMode(myColor))}>Change background </button>
