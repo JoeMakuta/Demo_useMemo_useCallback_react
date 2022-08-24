@@ -1,34 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+
+
+import { useCallback, useMemo, useState } from 'react'
+
+function changeBackground(color) {
+  if (color) return (false)
+  else return (true)
+}
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+  const [number, setNumber] = useState(0)
+  const [darkMode, setDarkMode] = useState(false)
+
+  const colorStyle = {
+    backgroundColor: darkMode ? 'black' : 'white',
+    color: darkMode ? 'white' : 'black'
+  }
+
+  const myColor = useMemo(() => changeBackground(darkMode), [darkMode]) // Implementation of useMemo
+  // const myColor = useCallback(changeBackground, [darkMode]) //Implementation of useCallback
+
+
+  return (<div style={colorStyle} >
+
+    <h1>
+      React Hooks :<br />
+      <span>useCallback</span> and <span>useMemo</span>
+    </h1>
+
+    <button onClick={() => { setNumber(number - 1) }}>-</button>
+    <strong>{number}</strong>
+    <button onClick={() => { setNumber(number + 1) }}>+</button>
+
+    <div>
+      <button onClick={() => (setDarkMode(myColor))}>Change background </button>
     </div>
-  )
+
+  </div>)
 }
 
 export default App
